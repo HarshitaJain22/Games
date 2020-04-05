@@ -1,5 +1,5 @@
 import pygame as pg
-
+import random
 window = pg.display.set_mode((500,500))
 pg.display.set_caption("Snake (hisssssssssssssssssss)")
 
@@ -19,6 +19,10 @@ while run:
     for event in pg.event.get():
         if event.type == pg.QUIT:
             run = False
+    head_x = random.randint(0,500)
+    head_y = random.randint(0,500)
+    pd.draw.rect(window, (255,0,0), (20*(head_x//20), 20*(head_y//20),25,25)
+    
     pg.display.update()
 
 pg.quit()
