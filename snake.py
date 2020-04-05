@@ -1,11 +1,18 @@
 import pygame as pg
 import random
+
 window = pg.display.set_mode((500,500))
 pg.display.set_caption("Snake (hisssssssssssssssssss)")
 
 #def make_grid():
 rows = 25
 run = True
+def draw_head():
+    head_x = random.randint(0,500)
+    head_y = random.randint(0,500)
+    pg.draw.rect(window, (255,0,0), (20*(head_x//20), 20*(head_y//20),25,25))
+
+
 while run:
     window.fill((255,255,255))
     diff = 20
@@ -19,10 +26,7 @@ while run:
     for event in pg.event.get():
         if event.type == pg.QUIT:
             run = False
-    head_x = random.randint(0,500)
-    head_y = random.randint(0,500)
-    pd.draw.rect(window, (255,0,0), (20*(head_x//20), 20*(head_y//20),25,25)
-    
+    draw_head()
     pg.display.update()
 
 pg.quit()
