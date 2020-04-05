@@ -7,11 +7,6 @@ pg.display.set_caption("Snake (hisssssssssssssssssss)")
 #def make_grid():
 rows = 25
 run = True
-def draw_head():
-    head_x = random.randint(0,500)
-    head_y = random.randint(0,500)
-    pg.draw.rect(window, (255,0,0), (20*(head_x//20), 20*(head_y//20),25,25))
-
 
 while run:
     window.fill((255,255,255))
@@ -26,7 +21,7 @@ while run:
     for event in pg.event.get():
         if event.type == pg.QUIT:
             run = False
-    draw_head()
+    pg.draw.rect(window, (255,0,0), (60,100,20,20))
     pg.display.update()
 
 pg.quit()
