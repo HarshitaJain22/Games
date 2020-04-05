@@ -21,7 +21,7 @@ while run:
     for event in pg.event.get():
         if event.type == pg.QUIT:
             run = False
-    pg.draw.rect(window, (255,0,0), (60,100,20,20))
+    pg.draw.rect(window, (0,255,0), (60,100,20,20))
     pg.display.update()
 
 pg.quit()
