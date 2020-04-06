@@ -47,7 +47,9 @@ def check_interaction(position,fruitx, fruity):
         print("You Lost")
         return False
     elif (check_x == food_x) and (check_y == food_y):
+        make_grid()
         generate_food(position[0], position[1], fruitx, fruity)
+        return True
     else:
         return True
 
