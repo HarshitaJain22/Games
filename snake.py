@@ -6,16 +6,19 @@ pygame.init()
 window = pygame.display.set_mode((500,500))
 pygame.display.set_caption("Snake (hisssssssssssss)")
 
+#def rand_num():
 fruit_x = random.randint(0,500)
 fruit_y = random.randint(0,500)
+    #info = [fruit_x, fruit_y]
+    #return info
 
 
 def generate_food(head_x, head_y, fruit_x, fruit_y):
-
+    #fruitc = rand_num()
     fcentre_x = (20*(fruit_x//20))+10
     fcentre_y = (20*(fruit_y//20))+10
 
-    if (fcentre_x == head_x) or (fcentre_y == head_y):
+    if (fcentre_x-10 == head_x) and (fcentre_y-10 == head_y):
         fruit_x = random.randint(0,500)
         fruit_y = random.randint(0,500)
         fcentre_x = 20*(fruit_x//20)
@@ -48,7 +51,7 @@ def check_interaction(position,fruitx, fruity):
         return False
     elif (check_x == food_x) and (check_y == food_y):
         make_grid()
-        generate_food(position[0], position[1], fruitx, fruity)
+        generate_food(position[0], position[1],fruitx, fruity)
         return True
     else:
         return True
@@ -66,7 +69,7 @@ while run:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
-            #pygame.quit()
+            pygame.quit()
 
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_RIGHT:
