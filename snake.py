@@ -5,13 +5,18 @@ pygame.init()
 
 window = pygame.display.set_mode((500,500))
 pygame.display.set_caption("Snake (hisssssssssssss)")
+
 run = True
+
 head_x = 60
 head_y = 100
+
 fps = 5
 clock = pygame.time.Clock()
+
 velocity_x = 0
 velocity_y = 0
+
 #def rand_num():
 fruit_x = random.randint(0,500)
 fruit_y = random.randint(0,500)
@@ -19,12 +24,12 @@ fruit_y = random.randint(0,500)
     #return info
 fcentre_x = (20*(fruit_x//20))+10
 fcentre_y = (20*(fruit_y//20))+10
+
 if (fcentre_x-10 == head_x) and (fcentre_y-10 == head_y):
     fruit_x = random.randint(0,500)
     fruit_y = random.randint(0,500)
     fcentre_x = 20*(fruit_x//20)
     fcentre_y = 20*(fruit_y//20)
-
 
 def generate_food(head_x, head_y):
     #fruitc = rand_num()
@@ -63,7 +68,7 @@ def check_interaction(position,fruitx, fruity):
     if (check_x == 25) or (check_y == 25) or (check_x == 0) or (check_y == 0):
         print("You Lost")
         return False
-    elif (check_x == food_x) and (check_y == food_y):
+    elif (position[0] == food_x) and (position[1] == food_y):
         make_grid()
         generate_food(position[0], position[1])
         return True
