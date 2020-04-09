@@ -52,6 +52,19 @@ score = 0
     #score +=1
     #print(score)
 
+#def add_body():
+    #?
+
+
+
+length_snake() = 1
+def snake_length():
+    length_snake += 1
+    add_body()
+
+
+    
+
 
 def check_interaction(position,fruitx, fruity, score): #TIP: I'm not changing this, but ideally use a different function for all your different logics
     check_x = position[0]//20
