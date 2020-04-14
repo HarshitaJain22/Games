@@ -75,9 +75,9 @@ def draw_body():
     for i in range (0,l):
         pygame.draw.rect(window, (255, 255,0) , (body_info[i][0], body_info[i][1], 20, 20))
     
-def check_border(position):
-    check_x = position[0]//20
-    check_y = position[1]//20
+def check_border():
+    check_x = body_info[0][0]//20
+    check_y = body_info[0][1]//20
     if (check_x > 25) or (check_y > 25) or (check_x < 0) or (check_y < 0):
         print("You Lost")
         return False
@@ -124,7 +124,7 @@ while run:
     coordinates(velocity_x, velocity_y)
     draw_body()
     pygame.draw.circle(window, (255,0,0), (fcentre_x, fcentre_y), 10)
-    run = check_border(head_pos)
+    run = check_border()
     check_food(fcentre_x, fcentre_y, scores)
     #pygame.draw.rect(window, (0, 255,0) , (head_x, head_y, 20, 20))
     pygame.display.update()
