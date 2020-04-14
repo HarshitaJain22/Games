@@ -20,16 +20,18 @@ velocity_y = 0
 global body_info
 body_info = []
 
+head_pos = [head_x, head_y]
+body_info.append(head_pos)
 
 def generate_food(head_x, head_y):
-    fruit_x = random.randint(0,500)
-    fruit_y = random.randint(0,500)
+    fruit_x = random.randint(0,499)
+    fruit_y = random.randint(0,499)
     fcentre_x = (20*(fruit_x//20))+10
     fcentre_y = (20*(fruit_y//20))+10
  
     if (fcentre_x-10 == head_x) and (fcentre_y-10 == head_y):
-        fruit_x = random.randint(0,500)
-        fruit_y = random.randint(0,500)
+        fruit_x = random.randint(0,499)
+        fruit_y = random.randint(0,499)
         fcentre_x = 20*(fruit_x//20)
         fcentre_y = 20*(fruit_y//20)
 
@@ -63,8 +65,8 @@ def coordinates(velx, vely):
 
 
 def increase_len():
-    new_block_x = body_info[-1][0] - 10 #10 so that i know where it is appearing
-    new_block_y = body_info[-1][1] -10
+    new_block_x = body_info[-1][0] - 20
+    new_block_y = body_info[-1][1]
     add_thing = [new_block_x, new_block_y]
     body_info.append(add_thing)
     draw_body()
@@ -73,9 +75,11 @@ def increase_len():
 def draw_body():
     l = len(body_info)
     for i in range (0,l):
-        pygame.draw.rect(window, (255, 255,0) , (body_info[i][0], body_info[i][1], 20, 20))
+        pygame.draw.rect(window, (0, 255,0) , (body_info[i][0], body_info[i][1], 20,20))
+        pygame.draw.circle(window, (100,100,100), (body_info[i][0]+10, body_info[i][1]+10), 3)
+    pygame.draw.rect(window, (0, 0,0) , (body_info[0][0]+4, body_info[0][1]+4, 12, 12))
     
-def check_border():
+def check_collision():
     check_x = body_info[0][0]//20
     check_y = body_info[0][1]//20
     if (check_x > 25) or (check_y > 25) or (check_x < 0) or (check_y < 0):
@@ -83,6 +87,7 @@ def check_border():
         return False
     else:
         return True
+
  
 def check_food(fruitx, fruity, sxores):
     food_x = fruitx-10
@@ -119,12 +124,16 @@ while run:
                 velocity_y = 20
  
     make_grid()
-    head_pos = [head_x, head_y]
-    body_info.append(head_pos)
     coordinates(velocity_x, velocity_y)
     draw_body()
     pygame.draw.circle(window, (255,0,0), (fcentre_x, fcentre_y), 10)
-    run = check_border()
+    run = check_collision()
+    for i in range (1,len(body_info)):
+        if body_info[0] == body_info[i]:
+            print("you ate yourself,lol")
+            run = False
+        else:
+            run = True
     check_food(fcentre_x, fcentre_y, scores)
     pygame.display.update()
     clock.tick(fps)
