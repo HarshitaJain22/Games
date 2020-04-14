@@ -126,7 +126,6 @@ while run:
     pygame.draw.circle(window, (255,0,0), (fcentre_x, fcentre_y), 10)
     run = check_border()
     check_food(fcentre_x, fcentre_y, scores)
-    #pygame.draw.rect(window, (0, 255,0) , (head_x, head_y, 20, 20))
     pygame.display.update()
     clock.tick(fps)
  
