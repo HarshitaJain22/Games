@@ -5,7 +5,8 @@ pygame.init()
  
 window = pygame.display.set_mode((500,540))
 pygame.display.set_caption("Snake (hisssssssssssss)")
- 
+
+global run 
 run = True
  
 head_x = 100
@@ -62,6 +63,24 @@ def display_score(font):
     window.blit(score_text,( 5+((100-score_text.get_width())//2), 5+((30-score_text.get_height())//2)))
     window.blit(score_num,( 105, 5+((30-score_num.get_height())//2)))
 
+
+font2 = pygame.font.SysFont("Bookman Old Style", 32)
+def game_over(show_string):
+    window.fill((0,0,0))
+    game_over_text = font2.render("GAME OVER :(", True, (255,255,255))
+    print_string = font2.render(show_string, True, (255,255,255))
+    score_string = font2.render("Your Score was:", True, (255,255,255))
+    score_num_string = font2.render(str(len(scores)), True, (255,255,255))
+    window.blit(game_over_text,(((500-game_over_text.get_width())//2),180))
+    window.blit(print_string,(((500-print_string.get_width())//2),240))
+    window.blit(score_string,(((500-score_string.get_width())//2)-30,300))
+    window.blit(score_num_string,(score_string.get_width()+((500-score_string.get_width())//2),300))
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            run = False
+            pygame.quit()
+            quit()
+
 def coordinates(velx, vely):
     for i in range (1,len(body_info)):
         body_info[-i][0] = body_info[-(i+1)][0]
@@ -90,9 +109,10 @@ def check_collision():
     check_x = body_info[0][0]//20
     check_y = body_info[0][1]//20
     if (check_x > 25) or (check_y > 27) or (check_x < 0) or (check_y < 2):
-        print("You Lost! GAME OVER")
+        #print("You Lost! GAME OVER")
+        game_over("You hit a wall.")
         return False
-        pygame.quit()
+        #pygame.quit()
     else:
         return True
 
@@ -140,11 +160,9 @@ while run:
     run = check_collision()
     for i in range (1,len(body_info)):
         if body_info[0] == body_info[i]:
-            print("You ate yourself! GAME OVER")
-            pygame.quit()
+            game_over("You bit yourself.")
+            run = False
+            break
     check_food(fcentre_x, fcentre_y, scores)
     pygame.display.update()
     clock.tick(fps)
- 
- 
-pygame.quit()
