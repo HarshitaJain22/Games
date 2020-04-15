@@ -90,7 +90,7 @@ def check_collision():
     check_x = body_info[0][0]//20
     check_y = body_info[0][1]//20
     if (check_x > 25) or (check_y > 27) or (check_x < 0) or (check_y < 2):
-        print("You Lost")
+        print("You Lost! GAME OVER")
         return False
         pygame.quit()
     else:
@@ -140,7 +140,7 @@ while run:
     run = check_collision()
     for i in range (1,len(body_info)):
         if body_info[0] == body_info[i]:
-            print("you ate yourself,lol")
+            print("You ate yourself! GAME OVER")
             pygame.quit()
     check_food(fcentre_x, fcentre_y, scores)
     pygame.display.update()
