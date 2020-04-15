@@ -51,10 +51,16 @@ def make_grid():
         pygame.draw.line(window, (0,0,0), (x,40), (x,540))
         pygame.draw.line(window, (0,0,0), (0,y), (500,y))
  
+font = pygame.font.SysFont("Bookman Old Style", 18)
+global scores
 scores = []
-def display_score(score):
-    score.append(1)
-    print(len(score))
+def display_score(font):
+    score = len(scores)
+    pygame.draw.rect(window, (255, 255,0) , (5, 5, 150,30))
+    score_num = font.render(str(score), True, (0,0,0))
+    score_text = font.render("SCORE:", True, (0,0,0))
+    window.blit(score_text,( 5+((100-score_text.get_width())//2), 5+((30-score_text.get_height())//2)))
+    window.blit(score_num,( 105, 5+((30-score_num.get_height())//2)))
 
 def coordinates(velx, vely):
     for i in range (1,len(body_info)):
@@ -98,7 +104,7 @@ def check_food(fruitx, fruity, sxores):
         global fcentre_x #TIP: This is a horrible way to do this, but it works. You should instead have a function which returns these values and set it elsewhere
         global fcentre_y
         fcentre_x, fcentre_y = generate_food(body_info[0][0], body_info[0][1])
-        display_score(sxores)
+        scores.append(1)
         increase_len()
 
 fcentre_x, fcentre_y = generate_food(head_x, head_y)
@@ -127,6 +133,7 @@ while run:
                 velocity_y = 20
  
     make_grid()
+    display_score(font)
     coordinates(velocity_x, velocity_y)
     draw_body()
     pygame.draw.circle(window, (255,0,0), (fcentre_x, fcentre_y), 10)
