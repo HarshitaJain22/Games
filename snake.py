@@ -3,13 +3,13 @@ import random
  
 pygame.init()
  
-window = pygame.display.set_mode((500,500))
+window = pygame.display.set_mode((500,540))
 pygame.display.set_caption("Snake (hisssssssssssss)")
  
 run = True
  
-head_x = 60
-head_y = 100
+head_x = 100
+head_y = 140
 
 fps = 5
 clock = pygame.time.Clock()
@@ -25,15 +25,16 @@ body_info.append(head_pos)
 
 def generate_food(head_x, head_y):
     fruit_x = random.randint(0,499)
-    fruit_y = random.randint(0,499)
+    fruit_y = random.randint(40,539)
     fcentre_x = (20*(fruit_x//20))+10
     fcentre_y = (20*(fruit_y//20))+10
- 
-    if (fcentre_x-10 == head_x) and (fcentre_y-10 == head_y):
-        fruit_x = random.randint(0,499)
-        fruit_y = random.randint(0,499)
-        fcentre_x = 20*(fruit_x//20)
-        fcentre_y = 20*(fruit_y//20)
+
+    for i in range (0, len(body_info)):
+        if (fcentre_x-10 == body_info[i][0]) and (fcentre_y-10 == body_info[i][1]):
+            fruit_x = random.randint(0,499)
+            fruit_y = random.randint(40,539)
+            fcentre_x = 20*(fruit_x//20)+10
+            fcentre_y = 20*(fruit_y//20)+10
 
     fruit_coordinates = (fcentre_x, fcentre_y)
     return fruit_coordinates
@@ -43,11 +44,11 @@ def make_grid():
     window.fill((255,255,255))
     diff = 20
     x = 0
-    y = 0
+    y = 20
     for i in range (0,25):
         x = x + diff
         y = y + diff
-        pygame.draw.line(window, (0,0,0), (x,0), (x,500))
+        pygame.draw.line(window, (0,0,0), (x,40), (x,540))
         pygame.draw.line(window, (0,0,0), (0,y), (500,y))
  
 scores = []
@@ -82,9 +83,10 @@ def draw_body():
 def check_collision():
     check_x = body_info[0][0]//20
     check_y = body_info[0][1]//20
-    if (check_x > 25) or (check_y > 25) or (check_x < 0) or (check_y < 0):
+    if (check_x > 25) or (check_y > 27) or (check_x < 0) or (check_y < 2):
         print("You Lost")
-        return False
+        #return False
+        pygame.quit()
     else:
         return True
 
@@ -100,6 +102,7 @@ def check_food(fruitx, fruity, sxores):
         increase_len()
 
 fcentre_x, fcentre_y = generate_food(head_x, head_y)
+
 while run:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -131,9 +134,8 @@ while run:
     for i in range (1,len(body_info)):
         if body_info[0] == body_info[i]:
             print("you ate yourself,lol")
-            run = False
-        else:
-            run = True
+            #run = False
+            pygame.quit()
     check_food(fcentre_x, fcentre_y, scores)
     pygame.display.update()
     clock.tick(fps)
