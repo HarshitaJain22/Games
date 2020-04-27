@@ -14,6 +14,7 @@ board = [[2,2,2,2,2,2,2],
          [2,2,2,2,2,2,2],
          [2,2,2,2,2,2,2],
          [2,2,2,2,2,2,2]]
+
             
 def draw_circles():
     window.fill((100,200,255))
@@ -26,8 +27,6 @@ def draw_circles():
         y = 150
         x += 90
     pygame.draw.line(window, (0,0,0), (0,90),(660,90),4)
-
-
 
 
 def check_n_place(coinx,player_num):
@@ -66,15 +65,15 @@ while run:
             elif event.key == pygame.K_LEFT:
                 if coin_x > 60:
                     coin_x -= 90
-            elif event.key == pygame.K_SPACE:
+            elif (event.key == pygame.K_SPACE) and (board[0][coin_x//94]==2):
                 coin_y = check_n_place(coin_x, player)
                 coins.append((coin_x, coin_y, color))
                 coin_x = 60
                 coin_y = 60
-                if player == 0:
+                if (player == 0) and (color == red):
                     player = 1
                     color = yellow
-                elif player == 1:
+                elif (player == 1) and (color == yellow):
                     player = 0
                     color = red
 
@@ -85,10 +84,8 @@ while run:
         pygame.draw.circle(window, red,(coin_x,coin_y),30)
     else:
         pygame.draw.circle(window, yellow,(coin_x,coin_y),30)
-        color=red
     
     
     pygame.display.update()
 
-#print(board)
 pygame.quit()
