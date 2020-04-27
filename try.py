@@ -27,8 +27,8 @@ def draw_circles():
         x += 90
     pygame.draw.line(window, (0,0,0), (0,90),(660,90),4)
 
-player = 0
-color = [red]
+
+
 
 def check_n_place(coinx,player_num):
     coin_y = 60
@@ -51,6 +51,9 @@ coin_y = 60
 def check_winner():
     pass
 
+player = 0
+color = red
+
 run = True
 while run:
     for event in pygame.event.get():
@@ -65,25 +68,27 @@ while run:
                     coin_x -= 90
             elif event.key == pygame.K_SPACE:
                 coin_y = check_n_place(coin_x, player)
-                coins.append((coin_x, coin_y))
+                coins.append((coin_x, coin_y, color))
                 coin_x = 60
                 coin_y = 60
+                if player == 0:
+                    player = 1
+                    color = yellow
+                elif player == 1:
+                    player = 0
+                    color = red
 
     draw_circles()
     for i in range(0, len(coins)):
-        pygame.draw.circle(window, color,(coins[i][0],coins[i][1]),30)
+        pygame.draw.circle(window, coins[i][2],(coins[i][0],coins[i][1]),30)
     if player == 0:
         pygame.draw.circle(window, red,(coin_x,coin_y),30)
-        color=yellow
-        player += 1
-        player = player%2
     else:
         pygame.draw.circle(window, yellow,(coin_x,coin_y),30)
         color=red
-        player += 1
-        player = player%2
     
     
     pygame.display.update()
 
+#print(board)
 pygame.quit()
