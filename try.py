@@ -29,7 +29,7 @@ def draw_circles():
     pygame.draw.line(window, (0,0,0), (0,90),(660,90),4)
 
 
-def check_n_place(coinx,player_num):
+def check_n_place(coinx, player_num):
     coin_y = 60
     col = coinx//94
     for i in range(1,7):
